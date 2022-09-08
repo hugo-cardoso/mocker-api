@@ -18,6 +18,10 @@ export class MockRepository {
     return await MockModel.findById(id);
   }
 
+  async findByCreatorId(creatorId: Mock["creatorId"]) {
+    return await MockModel.find({ creatorId });
+  }
+
   async create(mock: CreateMock): Promise<Mock> {
     return await MockModel.create(mock);
   }

@@ -20,7 +20,15 @@ export class MocksController {
 
   async getAll() {
     try {
-      const mocks = await this.mocksService.getMocks();
+      const headers = this.request.headers;
+
+      if (!headers.authorization) {
+        this.response.status(401).send("Unauthorized");
+        return;
+      }
+
+      const user = await this.auth0Service.getUserByAccessToken(headers.authorization);
+      const mocks = await this.mocksService.getMocks(user.sub);
 
       this.response.status(200).send(mocks);
     } catch (error) {
