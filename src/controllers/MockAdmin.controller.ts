@@ -91,6 +91,9 @@ export class MockAdminController {
       case "DELETE":
         this.deleteMock();
         break;
+      case "OPTIONS":
+        this.response.status(200).end();
+        break;
       default:
         this.response.status(405).send("Method Not Allowed");
     }
